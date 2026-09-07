@@ -1,0 +1,17 @@
+* Guix channel for Doom Emacs
+** Packages
+- =doomemacs=, =doomemacs-modules=
+- assorted emacs packages used by doomemacs-modules
+
+** Services
+- =home-doomemacs-service-type=
+
+** Examples
+- ./example/home.scm installs the example config shipped with doom
+- ./example/home-org.scm shows how to make a literate-style config
+
+** TODO Things to do [0/4]
+- [ ] lint/style emacs-xyz
+- [ ] improve the service
+- [ ] add tests / ci scripts
+- [ ] proper guix channel maintenance

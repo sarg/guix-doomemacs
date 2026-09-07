@@ -1,0 +1,34 @@
+# -*- lexical-binding: t; -*-
+#+PROPERTY: header-args :noweb-prefix no :noweb no-export :eval no
+#+PROPERTY: header-args:elisp :tangle config.el
+* Example literate configuration of doom emacs
+** init.el - enabled modules
+#+begin_src elisp :tangle init.el
+(doom!
+ :completion vertico (corfu +orderless)
+ :ui doom dashboard modeline
+ :lang emacs-lisp org
+ :editor (evil +everywhere) snippets
+ :emacs dired
+ :tools magit
+ :config (default +bindings))
+#+end_src
+
+** packages.el - add/remove packages
+#+begin_src elisp :tangle packages.el
+;; generated from config.org
+
+(package! magit-todos :disable t) ; too slow
+#+end_src
+
+** config.el - the configuration
+#+begin_src elisp
+;; -*- lexical-binding: t; -*-
+;; generated from config.org
+
+(setq doom-theme 'doom-one)
+(setq display-line-numbers-type t)
+
+; refer to a store path provided in (doomemacs-config #:inputs)
+(setq cowsay-executable (guix/pkg 'cowsay "/bin/cowsay"))
+#+end_src
