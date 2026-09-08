@@ -50,14 +50,8 @@ lexically enclosing binding forms.")
     (home-page "https://github.com/syl20bnr/vi-tilde-fringe")
     (synopsis "Displays tildes in the fringe on empty lines a la Vi")
     (description
-     "Usage ----- To toggle the mode locally: M-x vi-tilde-fringe-mode To toggle the
-mode globally: M-x global-vi-tilde-fringe-mode To turn it on automatically only
-for programming modes: (add-hook prog-mode-hook vi-tilde-fringe-mode)
-Customization ------------- Open the customization group buffer: M-x
-customize-group RET vi-tilde-fringe RET There you can change the bitmap array or
-the face of the symbol drawn in the fringe.  By default the symbol is a tilde
-:-) and its face simply inherits from `default'.")
-    (license #f)))
+     "Display tildes on empty lines in the fringe, similar to Vim.")
+    (license license:gpl3)))
 
 (define-public emacs-auto-minor-mode
   (package
@@ -77,21 +71,9 @@ the face of the symbol drawn in the fringe.  By default the symbol is a tilde
     (home-page "https://github.com/joewreschnig/auto-minor-mode")
     (synopsis "Enable minor modes by file name and contents")
     (description
-     "This package lets you enable minor modes based on file name and contents.  To
-find the right modes, it checks filenames against patterns in
-‘auto-minor-mode-alist’ and file contents against ‘auto-minor-mode-magic-alist’.
- These work like the built-in Emacs variables ‘auto-mode-alist’ and
-‘magic-mode-alist’.  Unlike major modes, all matching minor modes are enabled,
-not only the first match.  A reason you might want to use it: (add-to-list
-auto-minor-mode-alist (\"-theme\\\\.el\\\\'\" .  rainbow-mode)) There’s intentionally
-no equivalent of ‘interpreter-mode-alist’.  Interpreters should determine the
-major mode.  Relevant minor modes can then be enabled by major mode hooks.
-Minor modes are set whenever ‘set-auto-mode’, the built-in function responsible
-for handling automatic major modes, is called.  If you also use ‘use-package’,
-two new keywords are added, ‘:minor’ and ‘:magic-minor’, which register entries
-in these alists.  You must load (and not defer) ‘auto-minor-mode’ before using
-these keywords for other packages.")
-    (license #f)))
+     "Automatically enable minor modes based on file name and contents, similar to
+@code{auto-mode-alist} but for minor modes.")
+    (license license:gpl3)))
 
 (define-public emacs-evil-quick-diff
   (package
@@ -110,9 +92,11 @@ these keywords for other packages.")
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-evil))
     (home-page "https://github.com/rgrinberg/evil-quick-diff")
-    (synopsis "#f")
-    (description "#f")
-    (license #f)))
+    (synopsis "Quick diff against selected text using Evil")
+    (description
+     "Provide quick diff functionality for Evil, allowing comparison of selected text
+with other buffers or regions.")
+    (license license:gpl3)))
 
 (define-public emacs-better-jumper
   (package
@@ -132,11 +116,9 @@ these keywords for other packages.")
     (home-page "https://github.com/gilbertw1/better-jumper")
     (synopsis "Configurable jump list")
     (description
-     "Better-jumper is configurable jump list implementation for Emacs that can be
-used to easily jump back to previous locations.  That provides optional
-integration with evil.  To enable globally: (require better-jumper)
-(better-jumper-mode 1) See included README.md for more information.")
-    (license #f)))
+     "Configurable jump list for Emacs with optional Evil integration, allowing quick
+navigation back to previous locations.")
+    (license license:gpl2+)))
 
 (define-public emacs-embark-consult
   (package
@@ -159,24 +141,9 @@ integration with evil.  To enable globally: (require better-jumper)
     (home-page "https://github.com/oantolin/embark")
     (synopsis "Consult integration for Embark")
     (description
-     "This package provides integration between Embark and Consult.  The package will
-be loaded automatically by Embark.  Some of the functionality here was
-previously contained in Embark itself: - Support for consult-buffer, so that you
-get the correct actions for each type of entry in consult-buffer's list. -
-Support for consult-line, consult-outline, consult-mark and consult-global-mark,
-so that the insert and save actions don't include a weird unicode character at
-the start of the line, and so you can export from them to an occur buffer (where
-occur-edit-mode works!).  Just load this package to get the above functionality,
-no further configuration is necessary.  Additionally this package contains some
-functionality that has never been in Embark: access to Consult preview from
-auto-updating Embark Collect buffer that is associated to an active minibuffer
-for a Consult command.  For information on Consult preview, see Consult's info
-manual or its readme on @code{GitHub}.  If you always want the minor mode
-enabled whenever it possible use: (add-hook embark-collect-mode-hook
-#'consult-preview-at-point-mode) If you don't want the minor mode automatically
-on and prefer to trigger the consult previews manually use this instead:
-(keymap-set embark-collect-mode-map \"C-j\" #'consult-preview-at-point).")
-    (license #f)))
+     "Integration between Embark and Consult, providing Consult-specific actions and
+preview support in Embark Collect buffers.")
+    (license license:gpl3)))
 
 (define-public emacs-evil-easymotion
   (package
@@ -198,23 +165,9 @@ on and prefer to trigger the consult previews manually use this instead:
     (home-page "https://github.com/pythonnut/evil-easymotion")
     (synopsis "A port of vim's easymotion to emacs")
     (description
-     "This is a clone of the popular easymotion package for vim, which describes
-itself in these terms: > @code{EasyMotion} provides a much simpler way to use
-some motions in vim. > It takes the <number> out of <number>w or <number>f{char}
-by > highlighting all possible choices and allowing you to press one key > to
-jump directly to the target.  If you're having trouble picturing this, please
-visit the github repo for a screencast.  Usage/status ============
-evil-easymotion, rather unsurprisingly can use evil.  However, you don't _need_
-evil to use it.  evil-easymotion can happily define motions for regular emacs
-commands.  With that said, evil is recommended, not least because it's awesome.
-Currently most motions are supported, and it's easy to define your own
-easymotions. (evilem-define (kbd \"SPC w\") evil-forward-word-begin) To define
-easymotions for all motions that evil defines by default, add
-(evilem-default-keybindings \"SPC\") This binds all motions under the prefix `SPC`
-in `evil-motion-state-map`.  This is not done by default for motions defined
-manually.  You will need to supply the prefix.  More advanced use-cases are
-detailed in the github README.")
-    (license #f)))
+     "Port of Vim's EasyMotion to Emacs, highlighting possible jump targets and
+allowing single-key navigation to any position.")
+    (license license:gpl3)))
 
 (define-public emacs-evil-snipe
   (package
@@ -235,13 +188,9 @@ detailed in the github README.")
     (home-page "https://github.com/hlissner/evil-snipe")
     (synopsis "Emulate vim-sneak & vim-seek")
     (description
-     "Evil-snipe emulates vim-seek and/or vim-sneak in evil-mode.  It provides
-2-character versions of evil's f/F/t/T motions, for quick and more accurately
-jumping around text, plus incremental highlighting (for f/F/t/T as well).  To
-enable globally: (require evil-snipe) (evil-snipe-mode 1) To replace evil-mode's
-f/F/t/T functionality with (1-character) sniping: (evil-snipe-override-mode 1)
-See included README.md for more information.")
-    (license #f)))
+     "Emulate vim-seek and vim-sneak in Evil, providing 2-character f/F/t/T motions
+with incremental highlighting for precise jumping.")
+    (license license:gpl3)))
 
 (define-public emacs-evil-textobj-anyblock
   (package
@@ -262,19 +211,9 @@ See included README.md for more information.")
     (home-page "https://github.com/noctuid/evil-textobj-anyblock")
     (synopsis "Textobject for the closest user-defined blocks")
     (description
-     "This package is a port of vim-textobj-anyblock.  It gives text objects for the
-closest block of those defined in the evil-anyblock-blocks alist.  By default it
-includes (), {}, [], <>, , \"\", ``, and “”.  This is convenient for operating on
-the closest block without having to choose between typing something like i{ or
-i<.  This package allows for the list of blocks to be changed.  They can be more
-complicated regexps.  A simple expand-region like functionality is also provided
-when in visual mode, though this is not a primary focus of the plugin and does
-not exist in vim-textobj-anyblock.  Also, in the case that the point is not
-inside of a block, anyblock will seek forward to the next block.  The required
-version of evil is based on the last change I could find to evil-select-paren,
-but the newest version of evil is probably preferable.  For more information see
-the README in the github repo.")
-    (license #f)))
+     "Text object for the nearest user-defined block from a configurable list,
+similar to vim-textobj-anyblock.")
+    (license license:gpl3)))
 
 (define-public emacs-vimish-fold
   (package
@@ -295,16 +234,8 @@ the README in the github repo.")
     (home-page "https://github.com/mrkkrp/vimish-fold")
     (synopsis "Fold text like in Vim")
     (description
-     "This is a package to perform text folding like in Vim.  It has the following
-features: * folding of active regions; * good visual feedback: it's obvious
-which part of text is folded; * persistence by default: when you kill a buffer
-your folds don't disappear; * persistence scales well, you can work on hundreds
-of files with lots of folds without adverse effects; * it does not break
-indentation; * folds can be toggled from folded state to unfolded and back very
-easily; * quick navigation between existing folds; * you can use mouse to unfold
-folds (good for beginners and not only for them); * for fans of `avy package:
-you can use `avy to fold text with minimal number of key strokes!")
-    (license #f)))
+     "Fold text like in Vim, with persistence, visual feedback, and avy integration.")
+    (license license:gpl3)))
 
 (define-public emacs-evil-vimish-fold
   (package
@@ -325,11 +256,9 @@ you can use `avy to fold text with minimal number of key strokes!")
     (home-page "https://github.com/alexmurray/evil-vimish-fold")
     (synopsis "Integrate vimish-fold with evil")
     (description
-     "Integrate `vimish-fold with `evil'.  Provides bindings to create and delete
-folds via \"zf\" and \"zd\" respectively, and provides integration of usual vim fold
-commands via `vimish-fold`.  Also supports navigation between folds using \"zj\" /
-\"zk\" respectively.")
-    (license #f)))
+     "Integrate vimish-fold with Evil, providing zf/zd bindings for fold creation and
+deletion, and zj/zk for navigation between folds.")
+    (license license:gpl3)))
 
 (define-public emacs-exato
   (package
@@ -350,14 +279,9 @@ commands via `vimish-fold`.  Also supports navigation between folds using \"zj\"
     (home-page "https://github.com/ninrod/exato")
     (synopsis "EXATO: Evil XML/HTML Attributes Text Object")
     (description
-     "This package provides the `x` text object to manipulate html/xml tag attributes.
- it is a port of https://github.com/whatyouhide/vim-textobj-xmlattr vim plugin.
-Try using `dax`, `vix` and `@code{gUix`}.  You can customize the binding.  To
-install the package, Just use https://melpa.org.  Here's an oneliner using
-https://github.com/jwiegley/use-package: (use-package exato :ensure t)
-*customization*: to change the bind from `x` to your liking, you can customize
-exato-key: (use-package exato :ensure t :init (setq exato-key \"h\")).")
-    (license #f)))
+     "Evil text object for manipulating HTML/XML tag attributes, port of
+vim-textobj-xmlattr.")
+    (license license:gpl3)))
 
 (define-public emacs-markdown-toc
   (package
@@ -378,19 +302,8 @@ exato-key: (use-package exato :ensure t :init (setq exato-key \"h\")).")
     (home-page "http://github.com/ardumont/markdown-toc")
     (synopsis "A simple TOC generator for markdown file")
     (description
-     "Generate a TOC from a markdown file: M-x markdown-toc-generate-toc This will
-compute the TOC at insert it at current position.  Update existing TOC: C-u M-x
-markdown-toc-generate-toc Here is a possible output: <!-- markdown-toc start -
-Don't edit this section.  Run M-x markdown-toc-refresh-toc --> **Table of
-Contents** - [some markdown page title](#some-markdown-page-title) - [main
-title](#main-title) - [Sources](#sources) - [Marmalade
-(recommended)](#marmalade-recommended) - [Melpa-stable](#melpa-stable) - [Melpa
-(~snapshot)](#melpa-~snapshot) - [Install](#install) - [Load
-org-trello](#load-org-trello) - [Alternative](#alternative) - [Git](#git) -
-[Tar](#tar) - [another title](#another-title) - [with](#with) - [some](#some) -
-[heading](#heading) <!-- markdown-toc end --> Install - M-x package-install RET
-markdown-toc RET.")
-    (license #f)))
+     "Generate and update table of contents in Markdown files.")
+    (license license:gpl3)))
 
 (define-public emacs-highlight-quoted
   (package
@@ -410,8 +323,8 @@ markdown-toc RET.")
     (home-page "https://github.com/Fanael/highlight-quoted")
     (synopsis "Highlight Lisp quotes and quoted symbols")
     (description
-     "Minor mode proving highlight of Lisp quotes and quoted symbols.")
-    (license #f)))
+     "Minor mode for highlighting Lisp quotes and quoted symbols.")
+    (license license:gpl3)))
 
 (define-public emacs-flycheck-popup-tip
   (package
@@ -432,14 +345,8 @@ markdown-toc RET.")
     (home-page "https://github.com/flycheck/flycheck-popup-tip/")
     (synopsis "Display Flycheck error messages using popup.el")
     (description
-     "This is extension for Flycheck.  It displays Flycheck error messages in buffer
-using `popup.el library.  For more information about Flycheck:
-http://www.flycheck.org/ https://github.com/flycheck/flycheck For more
-information about this Flycheck extension:
-https://github.com/flycheck/flycheck-popup-tip ;; Setup Add to your `init.el':
-(with-eval-after-load flycheck (add-hook flycheck-mode-hook
-flycheck-popup-tip-mode)).")
-    (license #f)))
+     "Display Flycheck error messages in popup tooltips using popup.el.")
+    (license license:gpl3)))
 
 (define-public emacs-embrace
   (package
@@ -459,8 +366,10 @@ flycheck-popup-tip-mode)).")
     (arguments '(#:tests? #f))
     (home-page "https://github.com/cute-jumper/embrace.el")
     (synopsis "Add/Change/Delete pairs based on `expand-region'")
-    (description "TODO")
-    (license #f)))
+    (description
+     "Add, change, or delete paired delimiters using expand-region for selective
+region expansion.")
+    (license license:gpl3)))
 
 (define-public emacs-yasnippet-capf
   (package
@@ -481,11 +390,8 @@ flycheck-popup-tip-mode)).")
     (home-page "https://github.com/elken/yasnippet-capf")
     (synopsis "Yasnippet Completion At Point Function")
     (description
-     "Yasnippet Completion at Point Function to lookup snippets by name Simply add to
-the list of existing `completion-at-point-functions thus: (add-to-list
-completion-at-point-functions #'yasnippet-capf) If you prefer to have the lookup
-done by name rather than key, set `yasnippet-capf-lookup-by'.")
-    (license #f)))
+     "Yasnippet completion-at-point function for looking up snippets by name.")
+    (license license:gpl3)))
 
 (define-public emacs-ox-clip
   (package
@@ -506,21 +412,9 @@ done by name rather than key, set `yasnippet-capf-lookup-by'.")
     (home-page "https://github.com/jkitchin/ox-clip")
     (synopsis "Cross-platform formatted copying for org-mode")
     (description
-     "This module copies selected regions in org-mode as formatted text on the
-clipboard that can be pasted into other applications.  When not in org-mode, the
-htmlize library is used instead.  For Windows the html-clip-w32.py script will
-be installed.  It works pretty well, but I noticed that the hyperlinks in the
-TOC to headings don't work, and strike-through doesn't seem to work.  I have no
-idea how to fix either issue.  Mac OSX needs textutils and pbcopy, which should
-be part of the base install.  Linux needs a relatively modern xclip, preferrably
-a version of at least 0.12.  https://github.com/astrand/xclip The main command
-is `ox-clip-formatted-copy that should work across Windows, Mac and Linux.  By
-default, it copies as html.  Note: Images/equations may not copy well in html.
-Use `ox-clip-image-to-clipboard to copy the image or latex equation at point to
-the clipboard as an image.  The default latex scale is too small for me, so the
-default size for this is set to 3 in `ox-clip-default-latex-scale'.  This
-overrides the settings in `org-format-latex-options'.")
-    (license #f)))
+     "Cross-platform formatted clipboard copying for Org mode and other buffers using
+HTML, with support for images and LaTeX equations.")
+    (license license:gpl2+)))
 
 (define-public emacs-overseer
   (package
@@ -540,8 +434,8 @@ overrides the settings in `org-format-latex-options'.")
     (arguments '(#:tests? #f))
     (home-page "http://www.github.com/tonini/overseer.el")
     (synopsis "Ert-runner Integration Into Emacs")
-    (description "Ert-runner Integration Into Emacs.")
-    (license #f)))
+    (description "Ert-runner integration for running ERT tests from Emacs.")
+    (license license:gpl3)))
 
 (define-public emacs-evil-embrace
   (package
@@ -561,8 +455,10 @@ overrides the settings in `org-format-latex-options'.")
     (arguments '(#:tests? #f))
     (home-page "https://github.com/cute-jumper/evil-embrace.el")
     (synopsis "Evil integration of embrace.el")
-    (description "TODO")
-    (license #f)))
+    (description
+     "Integrate embrace.el with Evil surround, adding support for embrace
+functionality in Evil's surround operations.")
+    (license license:gpl3)))
 
 (define-public emacs-bind-key
   (package
@@ -578,7 +474,7 @@ overrides the settings in `org-format-latex-options'.")
     (build-system emacs-build-system)
     (home-page "https://github.com/jwiegley/use-package")
     (synopsis "A simple way to manage personal keybindings")
-    (description synopsis)
+    (description "Manage personal keybindings with a simple API.")
     (license license:gpl3+)))
 
 (define-public emacs-nerd-icons-corfu
@@ -600,11 +496,8 @@ overrides the settings in `org-format-latex-options'.")
     (home-page "https://github.com/LuigiPiucco/nerd-icons-corfu")
     (synopsis "Icons for Corfu via nerd-icons")
     (description
-     "Introduces a margin formatter for Corfu which adds icons.  The icons are
-configurable, but should be text icons provided by the icons fonts in
-`nerd-icons'.  To use, install the package and add the following to your init:
-(add-to-list corfu-margin-formatters #'nerd-icons-corfu-formatter).")
-    (license #f)))
+     "Add Nerd Font icons to Corfu completion margins via nerd-icons.")
+    (license license:gpl3)))
 
 (define-public emacs-nerd-icons-completion
   (package
@@ -625,9 +518,8 @@ configurable, but should be text icons provided by the icons fonts in
     (home-page "https://github.com/rainstormstudio/nerd-icons-completion")
     (synopsis "Add icons to completion candidates")
     (description
-     "Add nerd-icons to completion candidates.  nerd-icons-completion is inspired by
-`all-the-icons-completion': https://github.com/iyefrat/all-the-icons-completion.")
-    (license #f)))
+     "Add Nerd Font icons to completion candidates.")
+    (license license:gpl3)))
 
 (define-public emacs-nav-flash
   (package
@@ -647,48 +539,8 @@ configurable, but should be text icons provided by the icons fonts in
     (home-page "http://github.com/rolandwalker/nav-flash")
     (synopsis "Briefly highlight the current line")
     (description
-     "Quickstart (require nav-flash) (nav-flash-show) Explanation Nav-flash
-temporarily highlights the line containing the point, which is sometimes useful
-for orientation after a navigation command.  To use nav-flash, place the
-nav-flash.el library somewhere Emacs can find it, and add the following to your
-~/.emacs file: (require nav-flash) There is no user-level interface for this
-library; it is only used by other Lisp libraries.  However, you might find it
-useful to call `nav-flash-show in your ~/.emacs file.  For example, the
-following hook causes a flash to appear after navigating via imenu: (add-hook
-imenu-after-jump-hook nav-flash-show nil t) See Also M-x customize-group RET
-nav-flash RET M-x customize-group RET pulse RET Notes This library reuses a
-timer and overlay defined in compile.el, but should not affect the normal use of
-compile.el / `next-error'.  Pulse.el provides similar functionality and is
-included with Emacs.  This library can use pulse.el, but does not do so by
-default, because pulse.el uses `sit-for', breaking this type of construction:
-(nav-flash-show) (with-temp-message \"message here\" (sit-for 2)) When using an
-overlay and timer for cleanup (as nav-flash does by default) the flash and
-message appear simultaneously.  Nav-flash.el is also simpler than pulse.el.
-Compatibility and Requirements GNU Emacs version 25.1-devel : not tested GNU
-Emacs version 24.5 : not tested GNU Emacs version 24.4 : yes GNU Emacs version
-24.3 : yes GNU Emacs version 23.3 : yes GNU Emacs version 22.2 : yes, with some
-limitations GNU Emacs version 21.x and lower : unknown No external dependencies
-Bugs No known bugs.  TODO Check pulse period on other platforms. ; License
-Simplified BSD License: Redistribution and use in source and binary forms, with
-or without modification, are permitted provided that the following conditions
-are met: 1.  Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.  2.
-Redistributions in binary form must reproduce the above copyright notice, this
-list of conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.  This software is provided by
-Roland Walker \"AS IS\" and any express or implied warranties, including, but not
-limited to, the implied warranties of merchantability and fitness for a
-particular purpose are disclaimed.  In no event shall Roland Walker or
-contributors be liable for any direct, indirect, incidental, special, exemplary,
-or consequential damages (including, but not limited to, procurement of
-substitute goods or services; loss of use, data, or profits; or business
-interruption) however caused and on any theory of liability, whether in
-contract, strict liability, or tort (including negligence or otherwise) arising
-in any way out of the use of this software, even if advised of the possibility
-of such damage.  The views and conclusions contained in the software and
-documentation are those of the authors and should not be interpreted as
-representing official policies, either expressed or implied, of Roland Walker.")
-    (license #f)))
+     "Briefly highlight the current line after navigation for visual orientation.")
+    (license license:bsd-2)))
 
 (define-public emacs-treemacs-nerd-icons
   (package
@@ -708,8 +560,9 @@ representing official policies, either expressed or implied, of Roland Walker.")
     (arguments '(#:tests? #f))
     (home-page "https://github.com/rainstormstudio/treemacs-nerd-icons")
     (synopsis "Emacs Nerd Font Icons theme for treemacs")
-    (description "nerd-icons theme for treemacs.")
-    (license #f)))
+    (description
+     "Nerd Font icons theme for treemacs.")
+    (license license:gpl3)))
 
 (define-public emacs-browse-at-remote
   (package
@@ -731,10 +584,8 @@ representing official policies, either expressed or implied, of Roland Walker.")
     (synopsis
      "Open github/gitlab/bitbucket/stash/gist/phab/sourcehut page from Emacs")
     (description
-     "Easily open target page on github/gitlab (or bitbucket) from Emacs.  by calling
-`browse-at-remote` function.  Support dired buffers and opens them in tree mode
-at destination.")
-    (license #f)))
+     "Open GitHub, GitLab, Bitbucket, and other repository pages from Emacs.")
+    (license license:gpl3)))
 
 (define-public emacs-consult-dash
   (package
@@ -753,10 +604,8 @@ at destination.")
     (home-page "https://codeberg.org/ravi/consult-dash")
     (synopsis "Consult front-end for dash-docs")
     (description
-     "consult-dash is the only interface function, a consult front-end for dash-docs.
-Embark integration is automatically provided. ; To do - Avoid concatenating
-commands through the shell.")
-    (license #f)))
+     "Consult front-end for dash-docs with automatic Embark integration.")
+    (license license:gpl3)))
 
 (define-public emacs-makefile-executor
   (package
@@ -777,21 +626,8 @@ commands through the shell.")
     (home-page "https://github.com/Olivia5k/makefile-executor.el")
     (synopsis "Commands for conveniently running makefile targets")
     (description
-     "This package provides a set of tools aimed at working with Makefiles on a
-project level.  Currently available: - Interactively selecting a make target and
-running it.  Bound to C-c C-e when makefile-executor-mode is enabled. -
-Re-running the last execution.  We usually run things in Makefiles many times
-after all! Bound to `C-c C-c'` in `makefile-mode` when makefile-executor-mode'`
-is enabled. - Running a makefile target in a dedicated buffer.  Useful when
-starting services and other long-running things! Bound to `C-c C-d'` in
-`makefile-mode` when makefile-executor-mode'` is enabled. - Calculation of
-variables et.c.; $(BINARY) will show up as what it evaluates to. - Via
-`project.el', execution from any buffer in a project.  If more than one makefile
-is found, an interactive prompt for one is shown.  If `projectile is installed,
-this is added to the `projectile-commander on the m key.  To enable it, use the
-following snippet to add the hook into makefile-mode': (add-hook
-makefile-mode-hook makefile-executor-mode).")
-    (license #f)))
+     "Convenient tools for running Makefile targets interactively.")
+    (license license:gpl3)))
 
 (define-public emacs-gptel-magit
   (package
@@ -812,9 +648,8 @@ makefile-mode-hook makefile-executor-mode).")
     (home-page "https://github.com/ragnard/gptel-magit")
     (synopsis "Generate commit messages for magit using gptel")
     (description
-     "This package uses the gptel library to add LLM integration into magit.
-Currently, it adds functionality for generating commit messages.")
-    (license #f)))
+     "Generate commit messages for Magit using gptel LLM integration.")
+    (license license:gpl3)))
 
 (define-public emacs-clojure-ts-mode
   (package
@@ -834,17 +669,9 @@ Currently, it adds functionality for generating commit messages.")
     (home-page "http://github.com/clojure-emacs/clojure-ts-mode")
     (synopsis "Major mode for Clojure code")
     (description
-     "This package provides font-lock, indentation, and navigation for the Clojure
-programming language (http://clojure.org).  For the Tree-sitter grammar this
-mode is based on, see https://github.com/sogaiu/tree-sitter-clojure.  Using
-clojure-ts-mode with paredit or smartparens is highly recommended.  Here are
-some example configurations: ;; require or autoload paredit-mode (add-hook
-clojure-ts-mode-hook #'paredit-mode) ;; require or autoload smartparens
-(add-hook clojure-ts-mode-hook #'smartparens-strict-mode) See inf-clojure
-(http://github.com/clojure-emacs/inf-clojure) for basic interaction with Clojure
-subprocesses.  See CIDER (http://github.com/clojure-emacs/cider) for better
-interaction with subprocesses via @code{nREPL}.")
-    (license #f)))
+     "Major mode for Clojure using Tree-sitter for font-lock, indentation, and
+navigation.")
+    (license license:gpl3)))
 
 (define-public emacs-jet
   (package
@@ -865,67 +692,9 @@ interaction with subprocesses via @code{nREPL}.")
     (home-page "https://github.com/ericdallo/jet.el")
     (synopsis "Emacs integration for jet Clojure tool")
     (description
-     "Emacs integration for jet Clojure tool: https://github.com/borkdude/jet The main
-entrypoint is the `jet command which will use `transient to display a smooth
-interface to customize the command to be executed.  The other public functions
-are available to be used as quick commands or to keybind.")
-    (license #f)))
-
-(define-public emacs-highlight-quoted
-  (package
-    (name "emacs-highlight-quoted")
-    (version "20140916.1822")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-              (url "https://github.com/Fanael/highlight-quoted")
-              (commit "24103478158cd19fbcfb4339a3f1fa1f054f1469")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "1gq8inxfni9zgz2brqm4nlswgr8b0spq15wr532xfrgr456g10ks"))))
-    (build-system emacs-build-system)
-    (arguments '(#:tests? #f))
-    (home-page "https://github.com/Fanael/highlight-quoted")
-    (synopsis "Highlight Lisp quotes and quoted symbols")
-    (description
-     "Minor mode proving highlight of Lisp quotes and quoted symbols.")
-    (license #f)))
-
-(define-public emacs-ox-clip
-  (package
-    (name "emacs-ox-clip")
-    (version "20240310.1513")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-              (url "https://github.com/jkitchin/ox-clip")
-              (commit "a549cc8e1747beb6b7e567ffac27e31ba45cb8e8")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "1i94p0nzhx1h181z6whkc3gbja85qk97xvmhx3p03a7b1pjswrhn"))))
-    (build-system emacs-build-system)
-    (propagated-inputs (list emacs-org emacs-htmlize))
-    (arguments '(#:tests? #f))
-    (home-page "https://github.com/jkitchin/ox-clip")
-    (synopsis "Cross-platform formatted copying for org-mode")
-    (description
-     "This module copies selected regions in org-mode as formatted text on the
-clipboard that can be pasted into other applications.  When not in org-mode, the
-htmlize library is used instead.  For Windows the html-clip-w32.py script will
-be installed.  It works pretty well, but I noticed that the hyperlinks in the
-TOC to headings don't work, and strike-through doesn't seem to work.  I have no
-idea how to fix either issue.  Mac OSX needs textutils and pbcopy, which should
-be part of the base install.  Linux needs a relatively modern xclip, preferrably
-a version of at least 0.12.  https://github.com/astrand/xclip The main command
-is `ox-clip-formatted-copy that should work across Windows, Mac and Linux.  By
-default, it copies as html.  Note: Images/equations may not copy well in html.
-Use `ox-clip-image-to-clipboard to copy the image or latex equation at point to
-the clipboard as an image.  The default latex scale is too small for me, so the
-default size for this is set to 3 in `ox-clip-default-latex-scale'.  This
-overrides the settings in `org-format-latex-options'.")
-    (license #f)))
+     "Emacs integration for the jet Clojure transformation tool via transient
+interface.")
+    (license license:gpl3)))
 
 (define-public emacs-code-review
   (package
@@ -995,9 +764,8 @@ Transient.  Currently supports Github, Gitlab, and Bitbucket Cloud.")
     (home-page "http://www.github.com/manute/gorepl-mode")
     (synopsis "Go REPL Interactive Development in top of Gore")
     (description
-     "This library provides a Go repl interactive development environment for Emacs,
-built on top of Gore (https://github.com/motemen/gore).")
-    (license #f)))
+     "Go REPL interactive development environment for Emacs built on Gore.")
+    (license license:gpl3)))
 
 (define-public emacs-go-tag
   (package
@@ -1018,9 +786,8 @@ built on top of Gore (https://github.com/motemen/gore).")
     (home-page "https://github.com/brantou/emacs-go-tag")
     (synopsis "Edit Golang struct field tag")
     (description
-     "Edit field tags for golang struct fields, based on gomodifytags.  This package
-is inspired by @code{GoAddTags} of vim-go and go-add-tags.")
-    (license #f)))
+     "Edit Golang struct field tags using gomodifytags.")
+    (license license:gpl3)))
 
 (define-public emacs-go-gen-test
   (package
@@ -1042,9 +809,8 @@ is inspired by @code{GoAddTags} of vim-go and go-add-tags.")
     (home-page "https://github.com/s-kostyaev/go-gen-test")
     (synopsis "Generate tests for go code with gotests")
     (description
-     "This package is simple wrapper for https://github.com/cweill/gotests You should
-install `gotests for use it.")
-    (license #f)))
+     "Generate Go tests using gotests.")
+    (license license:gpl3)))
 
 (define-public emacs-flycheck-golangci-lint
   (package
@@ -1065,9 +831,8 @@ install `gotests for use it.")
     (home-page "https://github.com/weijiangan/flycheck-golangci-lint")
     (synopsis "Flycheck checker for golangci-lint")
     (description
-     "Flycheck checker for golangci-lint Usage: (eval-after-load flycheck (add-hook
-flycheck-mode-hook #'flycheck-golangci-lint-setup)).")
-    (license #f)))
+     "Flycheck checker for golangci-lint.")
+    (license license:gpl3)))
 
 (define-public emacs-restclient-jq
   (package
@@ -1090,9 +855,8 @@ flycheck-mode-hook #'flycheck-golangci-lint-setup)).")
     (home-page "https://github.com/pashky/restclient.el")
     (synopsis "Support for setting restclient vars from jq expressions")
     (description
-     "This is a companion to restclient.el to add support for setting variables from
-results using jq expressions.")
-    (license #f)))
+     "Set restclient variables from jq expressions applied to response bodies.")
+    (license license:gpl3)))
 
 (define-public emacs-flycheck-plantuml
   (package
@@ -1113,10 +877,8 @@ results using jq expressions.")
     (home-page "https://github.com/alexmurray/flycheck-plantuml")
     (synopsis "Integrate plantuml with flycheck")
     (description
-     "This packages integrates plantuml with flycheck to automatically check the
-syntax of your plantuml files on the fly ;; Setup (with-eval-after-load flycheck
-(require flycheck-plantuml) (flycheck-plantuml-setup)).")
-    (license #f)))
+     "Automatically check PlantUML file syntax with Flycheck.")
+    (license license:gpl3)))
 
 (define-public emacs-pip-requirements
   (package
@@ -1137,11 +899,9 @@ syntax of your plantuml files on the fly ;; Setup (with-eval-after-load flycheck
     (home-page "https://github.com/Wilfred/pip-requirements.el")
     (synopsis "A major mode for editing pip requirements files")
     (description
-     "This is a major mode for editing pip requirements files, with the following
-features: * Syntax highlighting * Togglable comments * Auto completion of
-package names from @code{PyPI} TODO: Steal shamelessly all the fantasic ideas in
-https://github.com/wuub/requirementstxt.")
-    (license #f)))
+     "Major mode for editing pip requirements files with syntax highlighting and
+completion.")
+    (license license:gpl3)))
 
 (define-public emacs-pipenv
   (package
@@ -1161,8 +921,9 @@ https://github.com/wuub/requirementstxt.")
     (arguments '(#:tests? #f))
     (home-page "https://github.com/pwalsh/pipenv.el")
     (synopsis "A Pipenv porcelain")
-    (description "See https://github.com/pwalsh/pipenv.el for documentation.")
-    (license #f)))
+    (description
+     "Pipenv porcelain for Emacs, integrating virtual environment management.")
+    (license license:gpl3)))
 
 (define-public emacs-python-pytest
   (package
@@ -1183,8 +944,8 @@ https://github.com/wuub/requirementstxt.")
     (home-page "https://github.com/wbolster/emacs-python-pytest")
     (synopsis "Helpers to run pytest")
     (description
-     "This package provides helpers to run pytest.  See README for details.")
-    (license #f)))
+     "Helpers to run pytest with convenient keybindings and compilation integration.")
+    (license license:gpl3)))
 
 (define-public emacs-haml-mode
   (package
@@ -1204,11 +965,8 @@ https://github.com/wuub/requirementstxt.")
     (home-page "https://github.com/nex3/haml-mode")
     (synopsis "Major mode for editing Haml files")
     (description
-     "Because Haml's indentation schema is similar to that of YAML and Python, many
-indentation-related functions are similar to those in yaml-mode and python-mode.
- To install, save this on your load path and add the following to your .emacs
-file: (require haml-mode).")
-    (license #f)))
+     "Major mode for editing Haml template files.")
+    (license license:gpl3)))
 
 (define-public emacs-slim-mode
   (package
@@ -1228,11 +986,8 @@ file: (require haml-mode).")
     (home-page "http://github.com/slim-template/emacs-slim")
     (synopsis "Major mode for editing Slim files")
     (description
-     "Because Slim's indentation schema is similar to that of YAML and Python, many
-indentation-related functions are similar to those in yaml-mode and python-mode.
- To install, save this on your load path and add the following to your .emacs
-file: (require slim-mode).")
-    (license #f)))
+     "Major mode for editing Slim template files.")
+    (license license:gpl3)))
 
 (define-public emacs-sass-mode
   (package
@@ -1253,12 +1008,8 @@ file: (require slim-mode).")
     (home-page "http://github.com/nex3/haml/tree/master")
     (synopsis "Major mode for editing Sass files")
     (description
-     "Because Sass's indentation schema is similar to that of YAML and Python, many
-indentation-related functions are similar to those in yaml-mode and python-mode.
- To install, save this on your load path and add the following to your .emacs
-file: (require sass-mode) sass-mode requires haml-mode, which can be found at
-http://github.com/nex3/haml-mode.")
-    (license #f)))
+     "Major mode for editing Sass files.")
+    (license license:gpl3)))
 
 (define-public emacs-stylus-mode
   (package
@@ -1280,8 +1031,8 @@ http://github.com/nex3/haml-mode.")
     (home-page "https://github.com/brianc/jade-mode")
     (synopsis "Major mode for editing .styl files")
     (description
-     "Major mode for the Stylus templating language (https://stylus-lang.com/).")
-    (license #f)))
+     "Major mode for the Stylus templating language.")
+    (license license:bsd-3)))
 
 (define-public emacs-sws-mode
   (package
@@ -1302,8 +1053,8 @@ http://github.com/nex3/haml-mode.")
        #:exclude '()))
     (home-page "https://github.com/brianc/jade-mode")
     (synopsis "(S)ignificant (W)hite(S)pace mode")
-    (description "Common code for the jade-mode and stylus-mode.")
-    (license #f)))
+    (description "Shared significant whitespace handling for jade-mode and stylus-mode.")
+    (license license:bsd-3)))
 
 (define-public emacs-treesit-fold
   (package
@@ -1322,7 +1073,7 @@ http://github.com/nex3/haml-mode.")
     (arguments (list #:tests? #f))
     (build-system emacs-build-system)
     (synopsis "Code folding using treesit")
-    (description "fold using treesit")
+    (description "Code folding using Tree-sitter.")
     (license license:gpl3+)))
 
 (define-public emacs-grip-mode
@@ -1363,8 +1114,8 @@ http://github.com/nex3/haml-mode.")
     (arguments '(#:tests? #f))
     (home-page "https://github.com/eqyiel/circe-notifications")
     (synopsis "Add desktop notifications to Circe")
-    (description "No description available.")
-    (license #f)))
+    (description "Send desktop notifications for new Circe IRC messages.")
+    (license license:gpl3)))
 
 (define-public emacs-uuidgen
   (package
@@ -1383,11 +1134,7 @@ http://github.com/nex3/haml-mode.")
     (home-page "https://github.com/kanru/uuidgen-el")
     (synopsis "Provides various UUID generating functions")
     (description
-     "This is a naive implementation of RFC4122 Universally Unique IDentifier
-generation in elisp.  Currently implemented are UUID v1 v3, v4 and v5
-generation.  The resolution of the time based UUID is microseconds, which is 10
-times of the suggested 100-nanosecond resolution, but should be enough for
-general usage.")
+     "Generate RFC 4122 UUIDs (v1, v3, v4, and v5) in Emacs Lisp.")
     (license license:gpl3)))
 
 (define-public emacs-load-env-vars
@@ -1408,11 +1155,8 @@ general usage.")
     (home-page "https://github.com/diasjorge/emacs-load-env-vars")
     (synopsis "Load environment variables from files")
     (description
-     "This package allows you set environment variables loaded from a file with bash
-style variable declarations.  Supported syntax: export KEY=VALUE KEY=VALUE
-KEY='VALUE KEY=\"VALUE\" # Comment lines are ignored KEY=VALUE # Inline comments
-are ignored KEY: VALUE.")
-    (license #f)))
+     "Load environment variables from a file with bash-style variable declarations.")
+    (license license:gpl3)))
 
 ;; hlissner's fork
 (define-public emacs-helpful-next

@@ -10,8 +10,7 @@
 - ./example/home.scm installs the example config shipped with doom
 - ./example/home-org.scm shows how to make a literate-style config
 
-** TODO Things to do [0/4]
-- [ ] lint/style emacs-xyz
+** TODO Things to do [0/3]
 - [ ] improve the service
 - [ ] add tests / ci scripts
 - [ ] proper guix channel maintenance
