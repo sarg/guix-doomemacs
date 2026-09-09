@@ -12,6 +12,7 @@
   #:use-module (doomemacs packages doomemacs)
   #:use-module (guix download)
   #:use-module (guix git-download)
+  #:use-module (guix build-system copy)
   #:use-module (guix build-system emacs)
   #:use-module (guix packages)
   #:use-module (ice-9 match)
@@ -36,46 +37,37 @@
                        "\\.example\\.el"))))))
 
 (define* (doomemacs-org-config #:key src inputs)
-  (computed-file "doom-config"
-    (with-imported-modules (source-module-closure
-                            '((guix build utils)
-                              (guix build emacs-build-system)
-                              (ice-9 rdelim)
-                              (srfi srfi-1)))
+  (package
+    (name "doomemacs-config")
+    (version "0")
+    (source src)
+    (build-system copy-build-system)
+    (arguments
+     (list
+      #:install-plan
+      #~'(("." "./" #:include-regexp ("\\.el$")))
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-before 'install 'tangle
+            (lambda* (#:key inputs #:allow-other-keys)
+              (invoke "emacs" "-Q" "--batch" "--eval"
+                      (simple-format #f "~s"
+                        '(progn
+                          (require 'ob-tangle)
+                          (setq org-confirm-babel-evaluate nil)
+                          (with-current-buffer
+                           (find-file-noselect "config.org")
+                           (org-babel-tangle nil nil "elisp")))))
 
-      (with-build-variables
-          (map (match-lambda
-                 ((a b) (list a (gexp-input b)))
-                 ((? package? p)  (list (package-name p) (gexp-input p))))
-               inputs)
-          '("out")
-
-        #~(begin
-            (use-modules (guix build utils)
-                         (guix build emacs-build-system)
-                         (ice-9 rdelim)
-                         (srfi srfi-1))
-
-            (mkdir-p %output)
-            (chdir %output)
-            (copy-file #$src (string-append %output "/config.org"))
-            (invoke (string-append #$emacs-minimal "/bin/emacs")
-                    "-L" (elpa-directory #$emacs-org)
-                    "-Q" "--batch" "--eval"
-                    (simple-format #f "~s"
-                      '(progn
-                        (require 'ob-tangle)
-                        (setq org-confirm-babel-evaluate nil)
-                        (with-current-buffer
-                         (find-file-noselect "config.org")
-                         (org-babel-tangle nil nil "elisp")))))
-
-            (delete-file "config.org")
-            (substitute* "config.el"
-              (("\\(guix/pkg '([^ )]+)" all pkg)
-               (format #f "(concat ~s"
-                       (or (assoc-ref %build-inputs pkg)
-                           (error (format #f "~a is required for emacs config but not present in inputs" pkg)))))))))))
+              (substitute* (find-files (getcwd) "\\.el$")
+                (("\\(guix/pkg '([^ )]+)" all pkg)
+                 (format #f "(concat ~s"
+                         (or (assoc-ref inputs pkg)
+                             (error (format #f "~a is required for emacs config but not present in inputs" pkg)))))))))))
+    (native-inputs (list emacs-minimal))
+    (inputs inputs)
+    (description "doom config")
+    (home-page #f) (synopsis #f) (license #f)))
 
 (define-public (doomemacs-profile emacs doom config inputs)
   (package
@@ -95,43 +87,36 @@
       #:phases
       #~(modify-phases %standard-phases
           (delete 'make-autoloads)
-          (delete 'unpack)
           (delete 'build)
+
           (add-before 'install 'build-profile
             (lambda* (#:key inputs #:allow-other-keys)
               (setenv "DOOMLOCALDIR" ".")
               (setenv "DOOMDIR" #$config)
+              ;; shows otherwise suppressed output
+              ;; i.e. the MISSING PACKAGES message of build-profile.el
               (setenv "DEBUG" "1")
 
               (setenv "DOOM_MODULE_PATH"
                       (string-join
                        (filter directory-exists?
-                               (append
-                                (list (string-append #$config "/modules"))
-                                (map (match-lambda
-                                       ((name . directory)
-                                        (string-append directory "/share/doomemacs/modules")))
-                                     inputs)))
+                               (map (match-lambda
+                                      ((name . directory)
+                                       (string-append directory "/share/doomemacs/modules")))
+                                    inputs))
                        ":"))
               (invoke "emacs" "-q" "--no-site-file" "--batch"
                       "--load" (search-input-file inputs "/share/doomemacs/early-init.el")
-                      "--load" (assoc-ref inputs "source"))))
+                      "--load" "build-profile.el")))
           (replace 'install
-            (lambda* (#:key inputs outputs #:allow-other-keys)
-              (let* ((emacs (search-input-file inputs "/bin/emacs"))
-                     (out (assoc-ref outputs "out")))
-                (setenv "SHELL" "sh")
-                (install-file
-                 (string-append "etc/@/" (car (scandir "etc/@" (cut string-suffix? ".el" <>))))
-                 out)
-                (parameterize ((%emacs emacs))
-                  (emacs-byte-compile-directory out))))))))
-    (inputs (cons doom inputs))
+            (lambda _
+              (install-file
+               (string-append "etc/@/" (car (scandir "etc/@" (cut string-suffix? ".el" <>))))
+               #$output))))))
+    (inputs (cons* doom config inputs))
     (native-inputs (list git))
     (description "doom profile")
-    (home-page #f)
-    (synopsis #f)
-    (license #f)))
+    (home-page #f) (synopsis #f) (license #f)))
 
 (define-configuration/no-serialization doomemacs-configuration
   (emacs
