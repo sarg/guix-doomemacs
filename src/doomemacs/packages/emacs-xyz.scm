@@ -499,28 +499,6 @@ functionality in Evil's surround operations.")
      "Add Nerd Font icons to Corfu completion margins via nerd-icons.")
     (license license:gpl3)))
 
-(define-public emacs-nerd-icons-completion
-  (package
-    (name "emacs-nerd-icons-completion")
-    (version "20251029.2106")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-              (url "https://github.com/rainstormstudio/nerd-icons-completion")
-              (commit "d09ea987ed3d2cc64137234f27851594050e2b64")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "022yfkfvcywgjplvsj5xajmc24q1c7yx0l5mvnzagjfdg4iajidv"))))
-    (build-system emacs-build-system)
-    (propagated-inputs (list emacs-nerd-icons emacs-compat))
-    (arguments '(#:tests? #f))
-    (home-page "https://github.com/rainstormstudio/nerd-icons-completion")
-    (synopsis "Add icons to completion candidates")
-    (description
-     "Add Nerd Font icons to completion candidates.")
-    (license license:gpl3)))
-
 (define-public emacs-nav-flash
   (package
     (name "emacs-nav-flash")
@@ -1075,26 +1053,6 @@ completion.")
     (synopsis "Code folding using treesit")
     (description "Code folding using Tree-sitter.")
     (license license:gpl3+)))
-
-(define-public emacs-grip-mode
-  (package
-    (name "emacs-grip-mode")
-    (version "20260324.1109")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/seagle0128/grip-mode")
-             (commit "d2d27240d0150c00f0b9a5d7d840357e84d4728d")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "1x0r8zcblbzzjx9w192mygndga6qp4baq4xkyvsny121vifdb9za"))))
-    (build-system emacs-build-system)
-    (home-page "https://github.com/seagle0128/grip-mode")
-    (synopsis "Instant GitHub-flavored Markdown/Org preview")
-    (description "Instant GitHub-flavored Markdown/Org preview using
-@code{grip}, @code{mdopen} or @code{go-grip}.")
-    (license license:gpl3)))
 
 (define-public emacs-circe-notifications
   (package
