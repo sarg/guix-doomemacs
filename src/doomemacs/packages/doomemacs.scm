@@ -45,7 +45,6 @@
      ;; core
      emacs-nerd-icons
      emacs-project
-     emacs-which-key
      emacs-compat
      emacs-gcmh
 
