@@ -62,7 +62,7 @@
 (define-public doomemacs-modules
   (package
    (name "doomemacs-modules")
-   (version "26.09")
+   (version "26.10")
    (source
     (origin
      (method git-fetch)
@@ -71,7 +71,7 @@
            (commit (string-append "v" version))))
      (file-name (git-file-name name version))
      (sha256
-      (base32 "0cafyndjrkfkdkbggl5834zp77nxjjh4blwfz25bw4bnrsrg1rav"))))
+      (base32 "062swdw31s3vfy6zfab9i6yc7749va8rcbv5fxpjdiyxww3rxjnz"))))
    (build-system copy-build-system)
    (arguments '(#:install-plan '(("modules" "share/doomemacs/modules"))))
    (home-page "https://github.com/doomemacs/modules")
